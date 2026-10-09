@@ -960,7 +960,9 @@
          </button>`;
 
       const canAttack = mineTurn && !(state.combat && state.combat.step === "blockers");
-      const bar = [
+
+      // Right-side action buttons (Pass turn, Next phase/Pass combat, Attack)
+      const rightBar = [
         state.ended
           ? slot("rematch", "⚔️", "Rematch", "gold pulse")
           : state.phase === "combat"
@@ -968,6 +970,10 @@
             : slot("nextPhase", "💫", "Next phase", "gold", !mineTurn),
         slot("passTurn", "✨", "Pass turn", mineTurn ? "gold pulse" : "", !mineTurn),
         slot("attack", "⚔️", "Attack", "gold", !canAttack),
+      ].join("");
+
+      // Main action bar (remaining buttons)
+      const bar = [
         slot("draw", "🎴", "Draw"),
         `<button type="button" class="ab-slot" data-act-open-counters>
            <span class="ab-ico" aria-hidden="true">🖊️</span>
@@ -1006,6 +1012,7 @@
         <div class="bb-slots" role="toolbar" aria-label="Table actions">${bar}</div>
 
         <div class="bb-right">
+          ${rightBar}
           <button type="button" class="bb-aux ffxi-log-btn" data-bar-tab="console">💬<span>Chat & Log</span></button>
         </div>
       `;
